@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/filter.css">  
+  <title>Barber Search</title>
+</head>
+
+<body>
+
+  <form action="#" method="post">
+    <div id="filters">
+      <label for="rating">Rating:</label>
+      <select id="rating" name="rating">
+        <option value="*">All</option>
+        <option value="5">5 stars</option>
+        <option value="4">4 stars</option>
+        <option value="3">3 stars</option>
+        <option value="2">2 stars</option>
+        <option value="1">1 star</option>
+      </select>
+  
+      <label for="specialization">Specialization:</label>
+      <select id="specialization" name="specialization">
+        <option value="*">All</option>
+        <option value="barber">Barber</option>
+        <option value="stylist">Stylist</option>
+      </select>
+    </div>
+  
+    <button type="submit" class="filterb">Filter</button>
+    <a href="{{url_for('routes.home')}}"><button type="button" class="back">Back</button></a>
+  </form>
+
+  
+
+  <div class="list-container">
+    <ul class="barber-list" id="barberList">
+      {%for i in data%}
+        <li class="barber-item">
+          <h3>{{i['name']}}</h3>
+          <p>Rating: {{i['rating']}}</p>
+          <p>Specialization: {{i['type']}}</p>
+        </li>
+      {%endfor%}
+    </ul>
+  </div>
+
+  
+
+
+
+</body>
+
+</html>

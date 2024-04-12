@@ -2,6 +2,7 @@ from flask import Flask
 
 def createApp():
     app = Flask(__name__)
+    app.secret_key = "secret_key"
 
     from .routes import routes
 

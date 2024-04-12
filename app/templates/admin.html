@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="static/css/admin.css">  
+</head>
+<body>
+    <div id="main-grid">
+        <div class="header">
+            {% if Authentication.is_admin() %}
+                <div class="searchbar">
+                    <img class="searchbar-icon" src="../static/assets/magnify.svg" alt="search">
+                    <form>
+                        <label for="search"></label>
+                        <input type="text" name="search" id="search">
+                    </form>
+                </div>
+            {% endif %}
+
+            <div class="user-info">
+                <img class="profile_picture" src="../static/assets/placeholder.png">
+                <div class="user-text">
+                    <h6>Hi there,</h6>
+                    <h3>{{Authentication.get_user()['username']}}</h3>
+                </div>
+            </div>
+            <div class="buttons">
+                {% if appointments %} 
+                    <a href="#" class="nav-btn"><button>Reschedule Appointment</button></a>
+                {% else %}
+                    <a href="{{url_for('routes.appointment')}}" class="nav-btn"><button>New Appointment</button></a>
+                {% endif %} 
+            </div>
+        </div>
+        <div class="side-bar">
+            <div class="dashboard">
+                <img class="dashboard-icon" src="../static/assets/view-dashboard.svg">
+                Dashboard
+            </div>
+            <div class="navigation">
+                <a class="navigation-selection" href="{{url_for('routes.home')}}">
+                    <img class="navigation-icon" src="../static/assets/home.svg">
+                    Home
+                </a>
+                <!-- <a class="navigation-selection" href="admin.html">
+                    <img class="navigation-icon" src="../static/assets/account.svg">
+                    Profile
+                </a> -->
+                <a class="navigation-selection" href="{{url_for('routes.dashboard')}}">
+                    <img class="navigation-icon" src="../static/assets/android-messages.svg">
+                    Dashboard
+                </a>
+                <a class="navigation-selection" href="{{url_for('routes.filter')}}">
+                    <img class="navigation-icon" src="../static/assets/magnify.svg">
+                    Filter
+                </a>
+            </div>
+            <div class="settings">
+                <a class="settings-selection" href="{{url_for('routes.logout')}}">
+                    <img class="settings-icon" src="../static/assets/account-cog-outline.svg">
+                    Logout
+                </a>
+                <!-- <a class="settings-selection" href="admin.html">
+                    <img class="settings-icon" src="../static/assets/lifebuoy.svg">
+                    Support
+                </a>
+                <a class="settings-selection" href="admin.html">
+                    <img class="settings-icon" src="../static/assets/shield-lock.svg">
+                    Privacy
+                </a> -->
+
+            </div>
+        </div>
+        <div class="main">
+            <div class="projects">
+            {% if Authentication.is_admin() %}
+
+                    <h4>All Appointments</h4>
+                        <table class="appointment-table">
+                            <tr>
+                                <th>Appointment ID</th>
+                                <th>Customer Username</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Price</th>
+                            </tr>
+                            {% for appointment in appointments %}
+                                <tr>
+                                    <td>{{appointment['id']}}</td>
+                                    <td>{{appointment['customer_id']}}</td>
+                                    <td>{{appointment['date']}}</td>
+                                    <td>{{appointment['time']}}</td>
+                                    <td>{{appointment['price']}}</td>
+                                </tr>
+                            {%endfor%}
+                            
+                            
+                            
+                        </table>
+            {% else %}
+                <h4>Your Appointments</h4>
+                <div class="cards">
+                    {% if appointments %} 
+                        <div class="card">
+                            <div class="card-content">
+                                <h3>Appointment</h3>
+                                <p>Date: {{appointments[0]['date']}}</p>
+                                <p>Time: {{appointments[0]['time']}}</p>
+                                <p>Price: ${{appointments[0]['price']}}.00</p>
+                            </div>
+                            <div class="icons">
+                                <img id="reschedule" class="card-icons" src="./icons/bookmark-multiple-outline.svg">
+                                <img id="trash" class="card-icons" src="./icons/trash-can-outline.svg">
+                            </div>
+                        </div>
+                    {% else %}
+                        <h3>No Appointments Made</h3>
+                    {% endif %}
+                </div>        
+            {% endif %}    
+            </div>
+        </div>
+    </div>
+    
+    
+</body>
+</html>

@@ -13,14 +13,24 @@
                 <a href="">Home</a>
                 <a href="">Contact</a>
                 <a href="">About Us</a>
+                {% if Authentication.logged_in() %}
+                    <a class="login_welcome" href="{{url_for('routes.dashboard')}}" >Welcome, {{Authentication.get_user()['username']}}</a>
+                    <a class="log_out" href="{{url_for('routes.logout')}}" >Log Out</a>
+                {% endif %}
+                
             </ul>
         </div> 
         <div class="header-text">
             <h1>Salon Appointment System</h1>  
             <p class="header-paragraph">Click the button below to log in or sign up</p>  
             <div class="buttons">
-                <button class="body-sign">Sign Up</button>
-                <button class="login">Login</button>  
+                <a href="{{url_for('routes.signup')}}"><button class="body-sign">Sign Up</button></a>
+                <a href="{{url_for('routes.login')}}"><button class="login">Login</button></a>  
+                {% if Authentication.logged_in() %}
+                    <a href="{{url_for('routes.dashboard')}}"><button class="login">Dashboard</button></a>  
+                {% endif %}
+
+
             </div>
                   
         </div>
