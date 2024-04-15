@@ -38,3 +38,29 @@ def appointment():
 def filter():
     controller = FilterController()
     return controller.run()
+
+@routes.route('/staff', methods=["POST", "GET"])
+def staff():
+    controller = StaffController()
+    return controller.run()
+
+
+@routes.route('/reschedule/<appointment_id>/', methods=["POST", "GET"])
+def reschedule(appointment_id):
+    controller = AppointmentController()
+    return controller.run(appointment_id)
+
+@routes.route('/appointment_update/<appointment_id>/', methods=["POST", "GET"])
+def appointment_update(appointment_id):
+    controller = AppointmentController()
+    return controller.appointmentUpdate(appointment_id)
+
+@routes.route('/appointment_cancel/<appointment_id>/', methods=["POST", "GET"])
+def appointment_cancel(appointment_id):
+    controller = DashboardController()
+    return controller.cancelAppointment(appointment_id)
+
+@routes.route('/appointment_activate/<appointment_id>/', methods=["POST", "GET"])
+def appointment_activate(appointment_id):
+    controller = DashboardController()
+    return controller.activateAppointment(appointment_id)

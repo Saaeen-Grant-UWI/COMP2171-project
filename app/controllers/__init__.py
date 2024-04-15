@@ -5,6 +5,7 @@ from .signup_contoller import SignupController
 from .dashboard_controller import DashboardController
 from .appointment_controller import AppointmentController
 from .filter_controller import FilterController
+from .staff_controller import StaffController
 
 __all__ = [
     'LoginController', 
@@ -13,5 +14,6 @@ __all__ = [
     'SignupController', 
     'DashboardController', 
     'AppointmentController', 
-    'FilterController'
+    'FilterController',
+    'StaffController'
 ]

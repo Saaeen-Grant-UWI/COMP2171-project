@@ -4,57 +4,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/css/selectionstyle.css">
+    <link rel="stylesheet" href="../static/css/reselectionstyle copy.css">
     <title>Service Selection</title>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const submitButton = document.getElementById("submit_service");
-            const customizationOptions = document.getElementById("customizationOptions");
-            const serviceOptions = document.querySelectorAll(".serviceOption input[type=checkbox]");
-            const priceBreakdown = document.getElementById("priceBreakdown");
-            const payment = document.getElementById("payment");
-            const calendar = document.getElementById("calendar");
-            const appointmentScheduling = document.getElementById("appointmentScheduling");
-            const bookNow = document.getElementById("bookNowBtn");
-            
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
 
-            bookNow.style.display = "none";
-            customizationOptions.style.display = "none";
-            priceBreakdown.style.display = "none";
-            payment.style.display = "none";
-            calendar.style.display = "none";
-            appointmentScheduling.style.display = "none";
+        header {
+            background-color: #222;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+        }
 
-            submitButton.addEventListener("click", function() {
-                let selectedService = false;
-                serviceOptions.forEach(function(option) {
-                    if (option.checked) {
-                        selectedService = true;
-                    }
-                });
+        section {
+            margin: 20px;
+        }
 
-                if (selectedService) {
-                    customizationOptions.style.display = "block";
-                } else {
-                    alert("Please select at least one service option.");
-                }
-            });
+        .serviceOption label {
+            display: flex;
+            flex-direction: column;
+        }
 
-            document.getElementById("submit_stylist").addEventListener("click", function() {
-                priceBreakdown.style.display = "block";
-                payment.style.display = "block";
-                calendar.style. display = "block";
-                appointmentScheduling.style.display = "block";
-                bookNow.style.display = "block";
+        h2 {
+            color: #333;
+        }
 
-            });
-        });
-    </script>
+        .serviceContainer {
+            display: flex;
+            flex-wrap: wrap;
+        }
 
+        .serviceOption {
+            margin-right: 20px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            gap: 12px;
+        }
+
+        .serviceOption:hover {
+            transform: scale(1.05);
+        }
+
+        button {
+            background-color: #4285f4;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3367d6;
+        }
+
+        .customizationOptions {
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        h3 {
+            color: #4285f4;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        #customizationOptions,
+        #priceBreakdown,
+        #appointmentScheduling,
+        #calendar,
+        #payment{
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment{
+            height: 34px;
+        }
+
+        select,
+        input[type="date"],
+        input[type="time"] {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #priceBreakdown {
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+
+
+        #selectedServicesList {
+            list-style: none;
+            padding: 0;
+        }
+
+        #selectedServicesList li {
+            margin-bottom: 5px;
+        }
+
+        #finalTotal {
+            margin-top: 10px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        #finalTotal input {
+            border: none;
+            margin-left: 8px;
+            outline: none;
+        }
+
+        #appointmentScheduling,
+        #calendar {
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        #availabilityCalendar {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #availabilityCalendar th,
+        #availabilityCalendar td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        #availabilityCalendar th {
+            background-color: #4285f4;
+            color: #fff;
+        }
+
+        #bookNowBtn,
+        #resetBtn {
+            background-color: #4285f4;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #bookNowBtn:hover,
+        #resetBtn:hover {
+            background-color: #3367d6;
+        }
+
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 5px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+
+
+        #appointmentDate .passed {
+            display: none;
+        }
+
+        #availabilityCalendar .booked_False{
+            background-color: #4caf50;
+            color: white;
+        }
+
+        #availabilityCalendar .booked_True {
+            color: white;
+            background-color: #e74c3c;
+        }
+
+        #availabilityCalendar .pending {
+            color: white;
+            background-color: #ee982f;
+        }
+
+        table .passed {
+            color: #333 !important;
+        }
+
+        table .passed, .passed td {
+            background-color: rgba(51, 51, 51, 0.462) !important;
+        }
+
+    </style>
 </head>
 
 <body>
-    {%if appointments['status'] != 'active'%}
         <header>
             <h1>Service Selection for Customers</h1>
         </header>
@@ -64,9 +230,8 @@
                 <h3 class="error">{{error}}</h3>
             {%endif%}
             <a href="{{url_for('routes.dashboard')}}"><button type="button">Back to Dashboard</button></a>
-
-            <form method="post" >
-                <h2>Select Your Service(s)</h2>
+            <form action="{{url_for('routes.appointment_update',appointment_id=appointment_user['id'])}}" method="post" >
+                <!-- <h2>Select Your Service(s)</h2>
                 <div class="serviceContainer">
                     {% for item in services %}
                         <div class="serviceOption">
@@ -77,11 +242,11 @@
                             </label>
                         </div>
                     {% endfor %}
-                </div>
+                </div> -->
         
-                <button id="submit_service" type="button">Submit Services</button>
+                <!-- <button id="submit_service" type="button">Submit Services</button> -->
 
-                <div class="customizationOptions" id="customizationOptions" >
+                <!-- <div class="customizationOptions" id="customizationOptions" >
                     <h3>Customization Options</h3>
                     <div id="haircutCustomization" >
                         <div id="prefbarber" >
@@ -93,9 +258,9 @@
                                 <option value="3">Roshaun Porter</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
         
-                    <div id="hairDoCustomization" >
+                    <!-- <div id="hairDoCustomization" >
         
                         <div id="prefstylist" >
                             <h4>Hair Stylist Selection</h4>
@@ -105,9 +270,9 @@
                                 <option value="5">Stephannie James</option>
                                 <option value="6">Jennifer Mcfarlene</option>
                             </select>
-                        </div>
+                        </div> -->
         
-                    </div>
+                    <!-- </div> -->
         
                     <!-- <div id="hairColouringCustomization" >
                         <h4>Hair Dye</h4>
@@ -119,9 +284,9 @@
                             <option value="red">Red</option>
                         </select>
                     </div> -->
-        
+<!--         
                     <button id="submit_stylist" type="button">Complete Customization</button>
-                </div>            
+                </div>             -->
 
 
                 <div id="priceBreakdown" >
@@ -162,7 +327,9 @@
                                     <td>{{time}}</td>
                                     {%for day in date.getWeek()%}
                                         {%if day in time_date.keys()%}
-                                            <td class="{{date.isToday(day)}} booked_{{time in time_date[day]}}" value="{{day}}">{{'Booked' if time in time_date[day] else 'Availabile'}}</td>
+                                            <td class="{{date.isToday(day)}} booked_{{time in time_date[day]}} {{'pending' if (time == appointment_user['time'] and day == appointment_user['date']) else ''}}" value="{{day}}">
+                                                {{ 'Current' if (time == appointment_user['time'] and day == appointment_user['date']) else 'Booked' if time in time_date[day] else 'Availabile'}}
+                                            </td>
                                         {%else%}
                                             <td class="{{date.isToday(day)}} booked_{{time in time_date[day]}}" value="{{day}}">Availabile</td>
                                         {%endif%}
@@ -196,11 +363,6 @@
             </form>
 
         </section>
-
-    {% else %}
-    <p></p>
-        <h1>YOU ALREADY HAVE AN APPOINTMENT</h1>
-    {% endif %}
 
     <!-- <footer>
         <p>&copy; 2023 Service Selection System</p>

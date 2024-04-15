@@ -276,3 +276,19 @@ input{
 .appointment-table tr:hover {
     background-color: #ddd;
 }
+
+/* .appointment-table .appointment-cancelled {
+    background-color: rgba(255, 0, 0, 0.4)  !important;
+} */
+
+.card.appointment-cancelled {
+    background-color: rgba(255, 0, 0, 0.4)  !important;
+    border-left: 10px solid red;
+
+}
+
+.card.appointment-passed {
+    background-color: rgba(255, 196, 0, 0.4)  !important;
+    border-left: 10px solid rgb(255, 196, 0);
+
+}

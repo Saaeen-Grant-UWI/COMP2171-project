@@ -5,7 +5,7 @@ class SignupController():
 
     def run(self):
         user = User()
-        test = {}
+        error = ''
 
         if request.method == 'POST':
             row = user.getUserWhere('username',  request.form.get('username'))
@@ -16,6 +16,10 @@ class SignupController():
                     row = {'username':request.form.get('username'), 'password':request.form.get('password')}   
                     Authentication.authenticate(row)
                     return redirect(url_for('routes.home'))
+                else:
+                    error = "Passwords Do Not Watch"
+            else:
+                error = "Username Has Been Taken"
 
 
-        return render_template('signup.html', data = test)
+        return render_template('signup.html', error = error)

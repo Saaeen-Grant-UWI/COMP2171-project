@@ -152,17 +152,6 @@ input[type="time"] {
     color: #fff;
 }
 
-#availabilityCalendar .available {
-    background-color: #4caf50;
-    color: #fff;
-}
-
-#availabilityCalendar .unavailable,
-#availabilityCalendar .booked {
-    background-color: #e74c3c;
-    color: #fff;
-}
-
 #bookNowBtn,
 #resetBtn {
     background-color: #4285f4;
@@ -188,3 +177,36 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+
+
+#appointmentDate .passed {
+    display: none;
+}
+
+#availabilityCalendar .booked_False{
+    background-color: #4caf50;
+    color: white;
+}
+
+#availabilityCalendar .booked_True {
+    color: white;
+    background-color: #e74c3c;
+}
+
+table .passed {
+    color: #333 !important;
+}
+
+table .passed, .passed td {
+    background-color: rgba(51, 51, 51, 0.462) !important;
+}
+
+.error {
+    color: red;
+    background-color: rgba(255, 0, 0, 0.25);
+    padding: 8px 0;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+  }

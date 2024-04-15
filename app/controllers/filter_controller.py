@@ -4,8 +4,9 @@ from app.models import *
 class FilterController():
 
     def run(self):
-        data = []
         staff = Staff()
+        data = staff.getStaff()
+
         if request.method == 'POST':
             temp =  {'specialization':request.form.get("specialization"),'rating':request.form.get("rating")}
 

@@ -28,11 +28,16 @@
                 </div>
             </div>
             <div class="buttons">
-                {% if appointments %} 
-                    <a href="#" class="nav-btn"><button>Reschedule Appointment</button></a>
-                {% else %}
-                    <a href="{{url_for('routes.appointment')}}" class="nav-btn"><button>New Appointment</button></a>
+                {% if not Authentication.is_admin() %} 
+                    {% if appointments['status'] == 'active' %} 
+                        <a href="{{url_for('routes.reschedule', appointment_id=appointments['id'])}}" class="nav-btn"><button>Reschedule Appointment</button></a>
+                    {% else %}
+                        <a href="{{url_for('routes.appointment')}}" class="nav-btn"><button>New Appointment</button></a>
+                    {% endif %} 
+                {%else%}
+                    <a href="{{url_for('routes.staff')}}" class="nav-btn"><button>Staff Window</button></a>
                 {% endif %} 
+                
             </div>
         </div>
         <div class="side-bar">
@@ -86,35 +91,57 @@
                                 <th>Date</th>
                                 <th>Time</th>
                                 <th>Price</th>
+                                <th><center>Action</center></th>
                             </tr>
                             {% for appointment in appointments %}
-                                <tr>
+                                <tr class="appointment-{{appointment['status']}}">
                                     <td>{{appointment['id']}}</td>
                                     <td>{{appointment['customer_id']}}</td>
                                     <td>{{appointment['date']}}</td>
                                     <td>{{appointment['time']}}</td>
                                     <td>{{appointment['price']}}</td>
+                                    <td>
+                                        <center>
+                                            {%if appointment['status'] == 'active'%}
+                                                <a href="{{url_for('routes.appointment_cancel',appointment_id=appointment['id'])}}">Cancel</a>
+                                            {%elif appointment['status'] == 'passed' %}
+                                                <a>Passed</a>
+                                            {%else%}
+                                                <a href="{{url_for('routes.appointment_activate',appointment_id=appointment['id'])}}">Activate</a>
+                                            {%endif%}
+
+                                        </center>
+                                    </td>
                                 </tr>
                             {%endfor%}
                             
-                            
-                            
                         </table>
             {% else %}
-                <h4>Your Appointments</h4>
+                <h4>Your Appointment</h4>
                 <div class="cards">
                     {% if appointments %} 
-                        <div class="card">
+                        <div class="card appointment-{{appointments['status']}}">
                             <div class="card-content">
                                 <h3>Appointment</h3>
-                                <p>Date: {{appointments[0]['date']}}</p>
-                                <p>Time: {{appointments[0]['time']}}</p>
-                                <p>Price: ${{appointments[0]['price']}}.00</p>
+                                <p>Date: {{appointments['date']}}</p>
+                                <p>Time: {{appointments['time']}}</p>
+                                <p>Price: ${{appointments['price']}}.00</p>
+                                
+                                <br>
+                                {% if appointments['status'] == 'cancelled' %} 
+                                    <h3>APPOINTMENT HAS BEEN CANCELLED</h3>
+                                {% endif %}
+                                {% if appointments['status'] == 'passed' %} 
+                                    <h3>APPOINTMENT HAS PASSED</h3>
+                                {% endif %}
                             </div>
-                            <div class="icons">
-                                <img id="reschedule" class="card-icons" src="./icons/bookmark-multiple-outline.svg">
-                                <img id="trash" class="card-icons" src="./icons/trash-can-outline.svg">
-                            </div>
+                            {% if appointments['status'] == 'active' %} 
+                                <div class="icons">
+                                    <a href="{{url_for('routes.appointment_cancel', appointment_id=appointments['id'])}}"><img class="card-icons" src="../static/assets/bookmark-multiple-outline.svg"></a>
+                                </div>
+                            {% endif %}
+
+
                         </div>
                     {% else %}
                         <h3>No Appointments Made</h3>

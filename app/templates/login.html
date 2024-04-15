@@ -11,6 +11,10 @@
 
   <form id="loginForm" action="#" method="post">
       <h2>Login</h2>
+      {% if error%}
+        <h3 class="error" >{{error}}</h3>
+      {%endif%}
+      
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" required>
 
@@ -19,8 +23,6 @@
 
       <button type="submit">Login</button>
   </form>
-
-  <p>{{Authentication.logged_in()}}</p>
 
 
   

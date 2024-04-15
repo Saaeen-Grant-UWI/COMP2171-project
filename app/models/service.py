@@ -2,9 +2,9 @@ from .database import Database
 
 class Service(Database):
     
-    def getStaff(self):
+    def getServices(self):
         connection = super().connect()
-        cursor = connection.cursor()
+        cursor = connection.cursor(dictionary=True)
         cursor.execute('select * from services')
         query_result  = cursor.fetchall()
 
