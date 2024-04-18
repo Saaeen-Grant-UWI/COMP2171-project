@@ -8,7 +8,9 @@ class AppointmentController():
         appointment = Appointment()
         service = Service()
         staff = Staff()
-        appointments = sorted(appointment.getCustomerAppointment(int(Authentication.get_user()['id'])), key=lambda x: x['id'], reverse=True)[0]
+        appointments = sorted(appointment.getCustomerAppointment(int(Authentication.get_user()['id'])), key=lambda x: x['id'], reverse=True)
+        if(appointments):
+            appointments = appointments[0]
         services = []
         times = ['9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM']
         
@@ -55,6 +57,7 @@ class AppointmentController():
                     'preferred_barber': request.form.get('barbers'),
                     'preferred_stylist': request.form.get('stylist')
                 }
+
                 staff.insertStaff(int(stylist_data['preferred_barber']), appointment.getLastAppointmentId())
                 staff.insertStaff(int(stylist_data['preferred_stylist']), appointment.getLastAppointmentId())
                 return redirect(url_for('routes.dashboard'))

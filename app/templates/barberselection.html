@@ -48,6 +48,70 @@
                 bookNow.style.display = "block";
 
             });
+
+            let selectedServices = [];
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const finalTotalInput = document.querySelector("#finalTotal input[name='price']");
+            var prices = {
+                1: 500,
+                2: 1000,
+                3: 500,
+                4: 2500,
+                5: 2500,
+                6: 1500,
+                7: 2000
+            };
+            
+            function updateCustomizationOptions() {
+                var selectedBarberServices = ['1', '2', '3', '6'];
+                var selectedStylistServices = ['4', '5', '6', '7'];
+                var showHaircutCustomization = false;
+                var showHairDoCustomization = false;
+
+                // Check if any of the selected services match barber services
+                selectedServices.forEach(function(service) {
+                    if (selectedBarberServices.includes(service)) {
+                        showHaircutCustomization = true;
+                    }
+                });
+
+                // Check if any of the selected services match stylist services
+                selectedServices.forEach(function(service) {
+                    if (selectedStylistServices.includes(service)) {
+                        showHairDoCustomization = true;
+                    }
+                });
+
+                // Hide or show the customization options based on selected services
+                if (showHaircutCustomization) {
+                    document.getElementById('haircutCustomization').style.display = 'block';
+                } else {
+                    document.getElementById('haircutCustomization').style.display = 'none';
+                }
+
+                if (showHairDoCustomization) {
+                    document.getElementById('hairDoCustomization').style.display = 'block';
+                } else {
+                    document.getElementById('hairDoCustomization').style.display = 'none';
+                }
+            }
+
+            checkboxes.forEach(function(checkbox) {
+                checkbox.addEventListener('click', function() {
+                    if (this.checked) {
+                        selectedServices.push(this.value);
+                    } else {
+                        let index = selectedServices.indexOf(this.value);
+                        if (index !== -1) {
+                            selectedServices.splice(index, 1);
+                        }
+                    }
+
+                    let priceMatch = selectedServices.map(key => prices[key]);
+                    finalTotalInput.value = priceMatch.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+                    updateCustomizationOptions();
+                });
+            });
         });
     </script>
 
@@ -70,7 +134,7 @@
                 <div class="serviceContainer">
                     {% for item in services %}
                         <div class="serviceOption">
-                            <input type="checkbox" id="{{item['service_tag']}}"  name="service" value="1">
+                            <input type="checkbox" id="{{item['service_tag']}}"  name="service" value="{{item['id']}}">
                             <label for="{{item['service_tag']}}">
                                 <span class="service_label"><span class="label_bold">Service : </span>{{item['service']}}</span>
                                 <span class="price_label"><span class="label_bold">Price : </span>{{item['price']}} </span>
@@ -179,7 +243,7 @@
                     <label for="appointmentDate">Date:</label>
                     <select id="appointmentDate" name="appointmentDate" required>
                         {%for day in date.getWeek()%}
-                            <option class="{{date.isToday(day)}}"  selected="{{'selected' if date.isToday(day) == 'today' else 'null'}}" value="{{day}}">{{date.getWeekDays(day)}}</option>
+                            <option class="{{date.isToday(day)}}"  selected="{{'selected' if date.isToday(day) == 'today' else ''}}" value="{{day}}">{{date.getWeekDays(day)}}</option>
                         {%endfor%}
                     </select>
                     <br>

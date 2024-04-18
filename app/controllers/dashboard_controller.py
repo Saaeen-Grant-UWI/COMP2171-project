@@ -14,7 +14,7 @@ class DashboardController():
                 item['customer_id'] = user.getUserById(item['customer_id'])[0]['username']
                 appointments.append(item)
         else:
-            appointments =sorted(Appointment().getCustomerAppointment(int(Authentication.get_user()['id'])), key=lambda x: x['id'], reverse=True)
+            appointments = sorted(Appointment().getCustomerAppointment(int(Authentication.get_user()['id'])), key=lambda x: x['id'], reverse=True)
             
             if(appointments):
                 appointments = appointments[0]
