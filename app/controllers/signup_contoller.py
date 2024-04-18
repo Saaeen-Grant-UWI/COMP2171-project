@@ -13,7 +13,7 @@ class SignupController():
             if(not row):
                 if(request.form.get('password') == request.form.get('confirm_password')):
                     user.insertUser(request.form.get('username'), request.form.get('password'))
-                    row = {'username':request.form.get('username'), 'password':request.form.get('password')}   
+                    row = user.getUserWhere('username',  request.form.get('username'))[0]  
                     Authentication.authenticate(row)
                     return redirect(url_for('routes.home'))
                 else:
