@@ -94,10 +94,12 @@ class Appointment(Database):
         cursor.close()
         connection.close()
 
-    def deleteAppointment(self, appointment_id):
+    def appointmentDelete(self, appointment_id):
+
         connection = super().connect()
-        cursor = connection.cursor()
-        cursor.execute(f"SET foreign_key_checks = 0; DELETE FROM appointments WHERE id = {appointment_id};", multi=True)
+        cursor = connection.cursor(dictionary=True)
+
+        cursor.execute(f"DELETE FROM appointments WHERE id = {appointment_id};")
 
         connection.commit()
         cursor.close()

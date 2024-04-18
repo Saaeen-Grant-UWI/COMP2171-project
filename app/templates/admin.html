@@ -109,9 +109,12 @@
                                             {%else%}
                                                 <a href="{{url_for('routes.appointment_activate',appointment_id=appointment['id'])}}">Activate</a>
                                             {%endif%}
+                                            <td><center><a href="{{url_for('routes.appointment_delete',appointment_id=appointment['id'])}}"><img src="../static/assets/trash-can-outline.svg" alt=""></a></center></td>
 
                                         </center>
                                     </td>
+
+                                    
                                 </tr>
                             {%endfor%}
                             

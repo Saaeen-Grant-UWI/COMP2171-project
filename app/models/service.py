@@ -22,6 +22,16 @@ class Service(Database):
         cursor.close()
         connection.close()
     
+    def bookedDelete(self, appointment_id):
+
+        connection = super().connect()
+        cursor = connection.cursor()
+
+        cursor.execute(f"DELETE FROM booked_services WHERE appointment_id = {appointment_id};")
+
+        connection.commit()
+        cursor.close()
+        connection.close()
     # def getUserById(self, data):
     #     connection = super().connect()
     #     cursor = connection.cursor(dictionary=True)

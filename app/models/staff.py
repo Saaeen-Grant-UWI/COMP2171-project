@@ -47,6 +47,17 @@ class Staff(Database):
 
         return query_result  
     
+    def bookedDelete(self, appointment_id):
+
+        connection = super().connect()
+        cursor = connection.cursor()
+
+        cursor.execute(f"DELETE FROM booked_staff WHERE appointment_id = {appointment_id};")
+
+        connection.commit()
+        cursor.close()
+        connection.close()
+    
     # def insertUser(self,username, password):
     #     connection = super().connect()
     #     cursor = connection.cursor(dictionary=True)

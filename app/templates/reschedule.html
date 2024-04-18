@@ -231,63 +231,7 @@
             {%endif%}
             <a href="{{url_for('routes.dashboard')}}"><button type="button">Back to Dashboard</button></a>
             <form action="{{url_for('routes.appointment_update',appointment_id=appointment_user['id'])}}" method="post" >
-                <!-- <h2>Select Your Service(s)</h2>
-                <div class="serviceContainer">
-                    {% for item in services %}
-                        <div class="serviceOption">
-                            <input type="checkbox" id="{{item['service_tag']}}"  name="service" value="1">
-                            <label for="{{item['service_tag']}}">
-                                <span class="service_label"><span class="label_bold">Service : </span>{{item['service']}}</span>
-                                <span class="price_label"><span class="label_bold">Price : </span>{{item['price']}} </span>
-                            </label>
-                        </div>
-                    {% endfor %}
-                </div> -->
-        
-                <!-- <button id="submit_service" type="button">Submit Services</button> -->
-
-                <!-- <div class="customizationOptions" id="customizationOptions" >
-                    <h3>Customization Options</h3>
-                    <div id="haircutCustomization" >
-                        <div id="prefbarber" >
-                            <h4>Barber Selection</h4>
-                            <p>Choose your preferred barber:</p>
-                            <select id="barbers" name="barbers">
-                                <option value="1">Robert Bailey</option>
-                                <option value="2">Oakland Porter</option>
-                                <option value="3">Roshaun Porter</option>
-                            </select>
-                        </div>
-                    </div> -->
-        
-                    <!-- <div id="hairDoCustomization" >
-        
-                        <div id="prefstylist" >
-                            <h4>Hair Stylist Selection</h4>
-                            <p>Choose your preferred hair stylist:</p>
-                            <select id="stylist" name="stylist">
-                                <option value="4">Felecia Hembram</option>
-                                <option value="5">Stephannie James</option>
-                                <option value="6">Jennifer Mcfarlene</option>
-                            </select>
-                        </div> -->
-        
-                    <!-- </div> -->
-        
-                    <!-- <div id="hairColouringCustomization" >
-                        <h4>Hair Dye</h4>
-                        <p>Choose Hair Colour:</p>
-                        <select id="hairColour">
-                            <option value="black">Black</option>
-                            <option value="brown">Brown</option>
-                            <option value="blonde">Blonde</option>
-                            <option value="red">Red</option>
-                        </select>
-                    </div> -->
-<!--         
-                    <button id="submit_stylist" type="button">Complete Customization</button>
-                </div>             -->
-
+               
 
                 <div id="priceBreakdown" >
                     <h3>Price Breakdown</h3>

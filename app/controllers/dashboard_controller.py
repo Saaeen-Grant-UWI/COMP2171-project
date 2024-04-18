@@ -39,5 +39,9 @@ class DashboardController():
         return redirect(url_for('routes.dashboard'))
     
     def deleteAppointment(self, appointment_id):
-        Appointment().deleteAppointment(appointment_id)
+        if(Authentication.is_admin()):
+            Appointment().appointmentDelete(appointment_id)
+            Staff().bookedDelete(appointment_id) 
+            Service().bookedDelete(appointment_id)
+            return redirect(url_for('routes.dashboard'))
         return redirect(url_for('routes.dashboard'))

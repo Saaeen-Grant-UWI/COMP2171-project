@@ -64,3 +64,8 @@ def appointment_cancel(appointment_id):
 def appointment_activate(appointment_id):
     controller = DashboardController()
     return controller.activateAppointment(appointment_id)
+
+@routes.route('/appointment_delete/<appointment_id>/', methods=["POST", "GET"])
+def appointment_delete(appointment_id):
+    controller = DashboardController()
+    return controller.deleteAppointment(appointment_id)
